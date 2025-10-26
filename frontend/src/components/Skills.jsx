@@ -33,16 +33,20 @@ const Skills = () => {
             <TabsContent key={groupIndex} value={groupIndex.toString()} className="mt-8">
               <div className="grid md:grid-cols-2 gap-6">
                 {skillGroup.items.map((skill, skillIndex) => (
-                  <Card key={skillIndex} className="border-gray-200 hover:shadow-lg transition-shadow">
+                  <Card key={skillIndex} className="border-2 border-gray-800 bg-gray-900/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-cyan-500/20 hover:border-cyan-400 transition-all duration-300">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-black">{skill.name}</span>
-                        <span className="text-xs text-gray-500 font-normal">{skill.level}%</span>
+                        <span className="text-sm font-medium text-white">{skill.name}</span>
+                        <span className="text-xs text-cyan-400 font-normal">{skill.level}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                      <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
                         <div
-                          className="bg-black h-full rounded-full transition-all duration-1000 ease-out"
-                          style={{ width: `${skill.level}%` }}
+                          className="h-full rounded-full transition-all duration-1000 ease-out"
+                          style={{ 
+                            width: `${skill.level}%`,
+                            background: `linear-gradient(90deg, #00f0ff ${skill.level}%, #ff006e 100%)`,
+                            boxShadow: '0 0 10px rgba(0, 240, 255, 0.5)'
+                          }}
                         ></div>
                       </div>
                     </CardContent>
