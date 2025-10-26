@@ -22,38 +22,39 @@ const Projects = () => {
           {projects.map((project) => (
             <Card
               key={project.id}
-              className="border-gray-200 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+              className="border-2 border-gray-800 bg-gray-900/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-purple-500/30 hover:border-purple-400 transition-all duration-300 group overflow-hidden"
             >
               <div className="relative overflow-hidden aspect-video">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-pink-500/0 group-hover:from-cyan-500/20 group-hover:to-pink-500/20 transition-all duration-500"></div>
               </div>
               
               <CardContent className="p-6 space-y-4">
-                <h3 className="text-xl font-medium text-black group-hover:text-gray-700 transition-colors">
+                <h3 className="text-xl font-medium text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-pink-400 transition-all">
                   {project.title}
                 </h3>
                 
-                <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+                <p className="text-sm text-gray-300 leading-relaxed line-clamp-2">
                   {project.description}
                 </p>
 
-                <p className="text-xs text-gray-500 italic">
+                <p className="text-xs text-gray-400 italic">
                   {project.impact}
                 </p>
 
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.slice(0, 4).map((tech, idx) => (
-                    <Badge key={idx} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
+                    <Badge key={idx} variant="secondary" className="text-xs bg-gray-800 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 transition-colors">
                       {tech}
                     </Badge>
                   ))}
                   {project.techStack.length > 4 && (
-                    <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-700">
+                    <Badge variant="secondary" className="text-xs bg-gray-800 text-pink-300 border border-pink-500/30">
                       +{project.techStack.length - 4}
                     </Badge>
                   )}
@@ -64,7 +65,7 @@ const Projects = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-black text-black hover:bg-black hover:text-white transition-colors"
+                      className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all hover:shadow-lg hover:shadow-cyan-400/50"
                       onClick={() => window.open(project.github, '_blank')}
                     >
                       <Github size={16} className="mr-2" />
@@ -75,7 +76,7 @@ const Projects = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-black text-black hover:bg-black hover:text-white transition-colors"
+                      className="border-2 border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-black transition-all hover:shadow-lg hover:shadow-pink-400/50"
                       onClick={() => window.open(project.liveDemo, '_blank')}
                     >
                       <ExternalLink size={16} className="mr-2" />
