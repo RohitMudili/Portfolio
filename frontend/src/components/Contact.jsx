@@ -29,15 +29,35 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Mock submission - will be replaced with backend API
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+    try {
+      // Netlify Forms submission
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          ...formData
+        }).toString()
       });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try emailing me directly.",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -112,7 +132,22 @@ const Contact = () => {
 
           <Card className="border-gray-200 bg-white">
             <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                {/* Netlify form detection */}
+                <input type="hidden" name="form-name" value="contact" />
+                {/* Honeypot field for spam protection */}
+                <div style={{ display: 'none' }}>
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </div>
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-sm text-gray-700">
                     Name

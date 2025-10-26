@@ -36,58 +36,51 @@ export const skills = [
     category: "Programming Languages",
     items: [
       { name: "Python", level: 90 },
-      { name: "JavaScript/TypeScript", level: 80 },
       { name: "C/C++", level: 70 },
-      { name: "SQL (PostgreSQL)", level: 75 },
+      { name: "SQL (Postgres)", level: 75 },
+      { name: "JavaScript", level: 80 },
       { name: "HTML/CSS", level: 80 }
     ]
   },
   {
-    category: "AI/ML Frameworks & Tools",
+    category: "AI/ML Frameworks",
     items: [
       { name: "LangChain", level: 90 },
       { name: "CrewAI", level: 85 },
-      { name: "OpenAI APIs", level: 90 },
-      { name: "Groq LLama", level: 80 },
-      { name: "GPT-4o", level: 90 },
-      { name: "LlamaIndex", level: 85 },
-      { name: "TensorFlow/PyTorch", level: 70 },
+      { name: "TensorFlow", level: 70 },
+      { name: "PyTorch", level: 70 },
       { name: "Scikit-learn", level: 75 }
     ]
   },
   {
-    category: "Backend & APIs",
+    category: "Backend Frameworks",
     items: [
+      { name: "Node.js", level: 80 },
+      { name: "Flask", level: 85 },
       { name: "FastAPI", level: 90 },
-      { name: "Flask", level: 80 },
-      { name: "Node.js", level: 70 },
-      { name: "RESTful APIs", level: 90 }
+      { name: "N8N", level: 85 }
     ]
   },
   {
-    category: "Vector Databases & Search",
+    category: "Libraries & Tools",
     items: [
-      { name: "ChromaDB", level: 90 },
-      { name: "Pinecone", level: 85 },
-      { name: "FAISS", level: 80 },
-      { name: "Semantic Search", level: 90 }
-    ]
-  },
-  {
-    category: "Automation & Orchestration",
-    items: [
-      { name: "N8N", level: 85 },
-      { name: "Workflow Automation", level: 90 },
-      { name: "Browser Automation", level: 80 }
+      { name: "Pandas", level: 90 },
+      { name: "NumPy", level: 85 },
+      { name: "Matplotlib", level: 80 },
+      { name: "PyPDF2", level: 80 },
+      { name: "Pinecone", level: 85 }
     ]
   },
   {
     category: "Developer Tools",
     items: [
-      { name: "Git/GitHub", level: 90 },
+      { name: "Git", level: 90 },
       { name: "Docker", level: 75 },
       { name: "Google Cloud Platform", level: 70 },
-      { name: "VS Code", level: 95 }
+      { name: "VS Code", level: 95 },
+      { name: "Visual Studio", level: 85 },
+      { name: "PyCharm", level: 85 },
+      { name: "IntelliJ", level: 80 }
     ]
   }
 ];
@@ -98,12 +91,12 @@ export const experiences = [
     company: "Es Magico AI",
     role: "AI Engineer Intern",
     duration: "June 2025 – Present",
-    location: "Mumbai, On-site",
+    location: "Mumbai — On-site",
     achievements: [
-      "Developed AI-powered automation system achieving 90% workflow reuse through intelligent similarity detection",
-      "Built workflow consolidation engine using LangChain & OpenAI APIs, reducing redundant steps by 40% across 1,200+ lines of code",
-      "Implemented ChromaDB vector database with semantic search using Google Gemini embeddings, supporting 100+ automation patterns",
-      "Created 3-tier AI error recovery system with 85% success rate in workflow replay"
+      "Developed an AI-powered automation system using Python, TypeScript and LLM models, achieving 90% workflow reuse through intelligent similarity detection and pattern recognition",
+      "Built a workflow consolidation engine using LangChain and OpenAI APIs that optimizes automation sequences, reducing redundant steps by 40% across 1,200+ lines of workflow processing code",
+      "Implemented ChromaDB vector database with semantic search using Google Gemini embeddings, supporting 100+ automation patterns with cross-platform compatibility",
+      "Created a 3-tier AI error recovery system with intelligent element detection algorithms and dynamic file handling, achieving 85% success rate in workflow replay across diverse applications"
     ],
     techStack: ["Python", "TypeScript", "LangChain", "OpenAI APIs", "ChromaDB", "Google Gemini"]
   },
@@ -112,11 +105,11 @@ export const experiences = [
     company: "AIVC Talent",
     role: "AI Developer Intern",
     duration: "January 2025 – June 2025",
-    location: "Remote, San Juan",
+    location: "Remote — San Juan",
     achievements: [
-      "Built real-time AI voice agent platform using Groq LLama-3.3-70b & GPT-4o with Deepgram STT, achieving <600ms latency for 6 business agents",
-      "Implemented RAG with LlamaIndex & FAISS, processing 1,000+ knowledge documents with 4 CRM integrations (Podio, RESimpli, Pipedrive, FollowUpBoss)",
-      "Developed AI content optimization system with 8 GEO techniques, improving AI search visibility by 40-60% across 100+ client evaluations"
+      "Built a real-time AI voice agent platform using Groq LLama-3.3-70b and GPT-4o with Deepgram STT and fine tuned huge datasets on the IndicTTS model, achieving <600ms latency for 6 pre-configured business agents",
+      "Implemented RAG with LlamaIndex and FAISS processing 1,000+ knowledge documents, enabling automated lead qualification with 4 CRM integrations (Podio, RESimpli, Pipedrive, FollowUpBoss)",
+      "Developed an AI content optimization system using GPT-4o with 8 GEO techniques and 11 scoring algorithms, improving AI search visibility by 40-60% across 100+ client evaluations"
     ],
     techStack: ["Groq LLama-3.3-70b", "GPT-4o", "Deepgram", "IndicTTS", "LlamaIndex", "FAISS", "Python"]
   }
@@ -125,9 +118,9 @@ export const experiences = [
 export const projects = [
   {
     id: 1,
-    title: "DocTel – Personalized PostOP Agent",
-    description: "AI-powered personalized agent for post-surgical recovery assistance",
-    longDescription: "Processed and analyzed 20,000+ data points including mood, temperature, pain, and wound health. Features early complication alert system and interactive workflows delivering real-time personalized recovery guidance.",
+    title: "DocTel – Personalised PostOP Agent",
+    description: "AI-powered personalised agent for post-surgical recovery assistance",
+    longDescription: "Built an AI-powered personalised agent to assist in post-surgical recovery using patient logs and symptom monitoring. Processed and analyzed 20,000+ data points including mood, temperature, pain, and wound health for early complication alerts. Designed interactive workflows to deliver personalized recovery guidance in real-time scenarios.",
     image: "https://images.unsplash.com/photo-1512998844734-cd2cca565822?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHRlY2hub2xvZ3l8ZW58MHx8fGJsYWNrX2FuZF93aGl0ZXwxNzYxNDkzNDUyfDA&ixlib=rb-4.1.0&q=85",
     techStack: ["Python", "Pandas", "FastAPI", "Matplotlib", "Scikit-learn"],
     github: "https://github.com/RohitMudili/DocTel",
@@ -138,7 +131,7 @@ export const projects = [
     id: 2,
     title: "FusionIQ Query Engine",
     description: "AI-driven multi-modal query processing system with RAG capabilities",
-    longDescription: "Features modular FastAPI endpoints handling diverse queries, document chunk extraction & vector embedding with Pinecone for RAG, and CrewAI orchestration for asynchronous REST API management.",
+    longDescription: "Engineered an AI-driven system to process diverse queries (policy retrieval, weather, web search) via modular FastAPI endpoints and graph workflows. Integrated document chunk extraction and vector embedding (Pinecone) for retrieval-augmented generation. Orchestrated CrewAI for asynchronous REST API management ensuring seamless query routing.",
     image: "https://images.unsplash.com/photo-1482053450283-3e0b78b09a70?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMHRlY2hub2xvZ3l8ZW58MHx8fGJsYWNrX2FuZF93aGl0ZXwxNzYxNDkzNDUyfDA&ixlib=rb-4.1.0&q=85",
     techStack: ["Python", "FastAPI", "CrewAI", "LangChain", "Pinecone"],
     github: null,
@@ -209,9 +202,9 @@ export const achievements = [
 ];
 
 export const education = {
-  institution: "IIIT Nagpur",
-  degree: "Bachelor of Technology (B.Tech)",
+  institution: "Indian Institute of Information Technology, Nagpur",
+  degree: "Bachelor of Technology",
   major: "Computer Science and Engineering",
   duration: "November 2022 – June 2026",
-  location: "Nagpur, Maharashtra, India"
+  location: "Nagpur, Maharashtra"
 };
