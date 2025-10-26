@@ -22,7 +22,7 @@ const Skills = () => {
               <TabsTrigger
                 key={index}
                 value={index.toString()}
-                className="data-[state=active]:bg-black data-[state=active]:text-white border border-gray-300 py-3 text-xs md:text-sm whitespace-normal h-auto min-h-[3rem]"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 border-2 border-gray-700 text-gray-300 hover:border-cyan-400 py-3 text-xs md:text-sm whitespace-normal h-auto min-h-[3rem] transition-all"
               >
                 {skillGroup.category}
               </TabsTrigger>
