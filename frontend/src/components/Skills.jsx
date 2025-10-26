@@ -5,13 +5,15 @@ import { skills } from '../data/mock';
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="skills" className="py-24 bg-gradient-to-b from-gray-950 to-black relative">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,240,255,0.05),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(255,0,110,0.05),transparent_50%)]"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight text-black mb-4">
+          <h2 className="text-5xl md:text-6xl font-light tracking-tight text-white mb-4">
             Technical Skills
           </h2>
-          <div className="w-24 h-1 bg-black mx-auto"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 mx-auto"></div>
         </div>
 
         <Tabs defaultValue="0" className="w-full">
