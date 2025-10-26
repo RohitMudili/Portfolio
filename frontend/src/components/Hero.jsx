@@ -23,22 +23,22 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
         <div className="space-y-6 animate-fade-in">
-          <h1 className="text-7xl md:text-9xl font-light tracking-tight text-black">
+          <h1 className="text-7xl md:text-9xl font-light tracking-tight text-white neon-text">
             {personalInfo.name}
           </h1>
           
-          <p className="text-xl md:text-2xl font-light text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 max-w-3xl mx-auto">
             {personalInfo.title}
           </p>
 
-          <p className="text-base md:text-lg font-normal text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg font-normal text-gray-300 max-w-2xl mx-auto leading-relaxed">
             {personalInfo.tagline}
           </p>
 
           <div className="flex items-center justify-center space-x-4 pt-8">
             <Button
               onClick={() => scrollToSection('projects')}
-              className="bg-black text-white hover:bg-gray-800 px-8 py-6 text-base transition-transform hover:scale-105"
+              className="neon-button text-white font-medium px-8 py-6 text-base transition-transform hover:scale-105"
             >
               View Projects
             </Button>
@@ -47,7 +47,7 @@ const Hero = () => {
               onClick={() => {
                 alert('Resume download will be implemented in backend');
               }}
-              className="border-black text-black hover:bg-gray-100 px-8 py-6 text-base transition-transform hover:scale-105"
+              className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 px-8 py-6 text-base transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/50"
             >
               Download Resume
             </Button>
@@ -58,7 +58,7 @@ const Hero = () => {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-black transition-colors hover:scale-110 transform"
+              className="text-gray-300 hover:text-cyan-400 transition-all hover:scale-110 transform hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]"
             >
               <Github size={24} />
             </a>
@@ -66,13 +66,13 @@ const Hero = () => {
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-black transition-colors hover:scale-110 transform"
+              className="text-gray-300 hover:text-pink-400 transition-all hover:scale-110 transform hover:drop-shadow-[0_0_8px_rgba(255,0,110,0.8)]"
             >
               <Linkedin size={24} />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="text-gray-600 hover:text-black transition-colors hover:scale-110 transform"
+              className="text-gray-300 hover:text-purple-400 transition-all hover:scale-110 transform hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]"
             >
               <Mail size={24} />
             </a>
@@ -81,7 +81,7 @@ const Hero = () => {
 
         <button
           onClick={() => scrollToSection('about')}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce text-gray-400 hover:text-black transition-colors"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce text-cyan-400 hover:text-pink-400 transition-colors hover:drop-shadow-[0_0_10px_rgba(0,240,255,0.8)]"
         >
           <ArrowDown size={32} />
         </button>
