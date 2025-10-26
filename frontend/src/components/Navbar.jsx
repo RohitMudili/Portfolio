@@ -54,7 +54,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection('home')}
-            className="text-2xl font-light tracking-tight hover:opacity-70 transition-opacity"
+            className="text-2xl font-light tracking-tight text-white hover:opacity-70 transition-opacity"
           >
             RM
           </button>
@@ -66,8 +66,8 @@ const Navbar = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`text-sm font-normal transition-all duration-200 hover:-translate-y-0.5 ${
                   activeSection === item.id
-                    ? 'text-black font-medium'
-                    : 'text-gray-600 hover:text-black'
+                    ? 'text-white font-medium'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -75,14 +75,14 @@ const Navbar = () => {
             ))}
             <Button
               onClick={() => scrollToSection('contact')}
-              className="bg-black text-white hover:bg-gray-800 transition-colors"
+              className="bg-white text-black hover:bg-gray-200 transition-colors"
             >
               Get in Touch
             </Button>
           </div>
 
           <button
-            className="md:hidden text-black"
+            className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -97,8 +97,8 @@ const Navbar = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
                   activeSection === item.id
-                    ? 'text-black font-medium bg-gray-100'
-                    : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                    ? 'text-white font-medium bg-white/10'
+                    : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {item.label}
@@ -106,7 +106,7 @@ const Navbar = () => {
             ))}
             <Button
               onClick={() => scrollToSection('contact')}
-              className="w-full bg-black text-white hover:bg-gray-800"
+              className="w-full bg-white text-black hover:bg-gray-200"
             >
               Get in Touch
             </Button>

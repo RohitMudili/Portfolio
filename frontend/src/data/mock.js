@@ -2,7 +2,7 @@
 
 export const personalInfo = {
   name: "Rohit Mudili",
-  title: "AI Engineer | LLM Specialist | Automation Expert",
+  title: "AI Engineer | Machine Learning | Deep Learning",
   tagline: "Building intelligent systems that bridge AI innovation with real-world automation",
   email: "rohitmudili5@gmail.com",
   phone: "+91 8919878337",
