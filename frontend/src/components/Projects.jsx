@@ -7,13 +7,15 @@ import { projects } from '../data/mock';
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="projects" className="py-24 bg-gradient-to-b from-black to-gray-950 relative">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(139,92,246,0.05),transparent_50%),radial-gradient(circle_at_20%_80%,rgba(0,255,136,0.05),transparent_50%)]"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight text-black mb-4">
+          <h2 className="text-5xl md:text-6xl font-light tracking-tight text-white mb-4">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-black mx-auto"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 via-pink-400 to-green-400 mx-auto"></div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
