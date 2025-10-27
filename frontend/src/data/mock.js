@@ -179,14 +179,14 @@ export const projects = [
   },
   {
     id: 6,
-    title: "DarwixAI",
-    description: "Advanced AI project exploring evolutionary algorithms",
-    longDescription: "AI system implementing evolutionary computation and adaptive algorithms for complex problem solving.",
+    title: "Relational DB to Graph RAG",
+    description: "Transform relational databases into semantically-enriched knowledge graphs with AI-powered querying",
+    longDescription: "Production-ready system that converts PostgreSQL schemas into Neo4j graph structures with natural language query capabilities. Features automated schema analysis, LLM-powered semantic labeling using GPT-4o, embedding generation with OpenAI, and multi-modal search combining vector similarity and graph traversal. Processed Northwind database into 1,158 nodes and 5,946 relationships with semantic embeddings.",
     image: "https://images.pexels.com/photos/1420709/pexels-photo-1420709.jpeg",
-    techStack: ["Python", "AI/ML"],
-    github: "https://github.com/RohitMudili/DarwixAI",
+    techStack: ["Python", "PostgreSQL", "Neo4j", "GPT-4o", "Gemini", "Streamlit", "Docker"],
+    github: "https://github.com/RohitMudili/relational-to-graphrag",
     liveDemo: null,
-    impact: "Evolutionary AI for optimization problems"
+    impact: "AI-powered knowledge graphs enabling natural language database querying"
   }
 ];
 
