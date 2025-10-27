@@ -38,18 +38,25 @@ export const skills = [
       { name: "Python", level: 90 },
       { name: "C/C++", level: 70 },
       { name: "SQL (Postgres)", level: 75 },
-      { name: "JavaScript", level: 80 },
-      { name: "HTML/CSS", level: 80 }
+      { name: "JavaScript", level: 50 },
+      { name: "HTML/CSS", level: 50 }
     ]
   },
   {
     category: "AI/ML Frameworks",
     items: [
-      { name: "LangChain", level: 90 },
-      { name: "CrewAI", level: 85 },
-      { name: "TensorFlow", level: 70 },
-      { name: "PyTorch", level: 70 },
-      { name: "Scikit-learn", level: 75 }
+      { name: "TensorFlow", level: 90 },
+      { name: "PyTorch", level: 80 },
+      { name: "Scikit-learn", level: 90 }
+    ]
+  },
+  {
+    category: "Agentic Frameworks",
+    items: [
+      { name: "Langgraph", level: 85 },
+      { name: "Langchain", level: 85 },
+      { name: "Google Agent Development Kit (Google ADK)", level: 80 },
+      { name: "CrewAI", level: 90 }
     ]
   },
   {
@@ -57,8 +64,7 @@ export const skills = [
     items: [
       { name: "Node.js", level: 80 },
       { name: "Flask", level: 85 },
-      { name: "FastAPI", level: 90 },
-      { name: "N8N", level: 85 }
+      { name: "FastAPI", level: 90 }
     ]
   },
   {
@@ -68,7 +74,8 @@ export const skills = [
       { name: "NumPy", level: 85 },
       { name: "Matplotlib", level: 80 },
       { name: "PyPDF2", level: 80 },
-      { name: "Pinecone", level: 85 }
+      { name: "Pinecone", level: 85 },
+      { name: "N8N", level: 85 }
     ]
   },
   {
@@ -79,8 +86,7 @@ export const skills = [
       { name: "Google Cloud Platform", level: 70 },
       { name: "VS Code", level: 95 },
       { name: "Visual Studio", level: 85 },
-      { name: "PyCharm", level: 85 },
-      { name: "IntelliJ", level: 80 }
+      { name: "PyCharm", level: 85 }
     ]
   }
 ];
