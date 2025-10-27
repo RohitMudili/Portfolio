@@ -12,13 +12,15 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative neon-gradient-bg">
-      <div className="absolute inset-0 overflow-hidden neon-radial-gradient">
-        <div className="absolute top-20 right-20 w-96 h-96 border-2 rounded-full animate-spin-slow neon-glow-animation" style={{ animationDuration: '20s', borderColor: '#00f0ff', boxShadow: '0 0 30px #00f0ff, inset 0 0 30px #00f0ff' }}></div>
-        <div className="absolute bottom-20 left-20 w-72 h-72 border-2 rounded-full animate-spin-slow" style={{ animationDuration: '30s', animationDirection: 'reverse', borderColor: '#ff006e', boxShadow: '0 0 30px #ff006e, inset 0 0 30px #ff006e' }}></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border-2 rounded-full opacity-40" style={{ borderColor: '#8b5cf6', boxShadow: '0 0 40px #8b5cf6' }}></div>
-        <div className="absolute top-40 left-40 w-32 h-32 bg-gradient-to-br from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-40 right-40 w-48 h-48 bg-gradient-to-br from-purple-500/20 to-green-500/20 rounded-full blur-3xl"></div>
+    <section id="home" className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+
+        {/* Professional gradient orbs */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
