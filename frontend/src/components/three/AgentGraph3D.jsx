@@ -17,16 +17,18 @@ const ACCENT_DIM = "#2f6dd0";
 const LINE = "#6f7891";
 const LABEL = "#aab2c8";
 
+// Layout is shifted right (positive X) so the left-most nodes clear the
+// headline/text column on the left half of the hero.
 const NODE_DEFS = [
-  { id: "input", label: "INPUT", p: [-6.2, 2.6, 0.4], r: 0.34 },
-  { id: "docs", label: "DOCS", p: [-6.4, -2.4, -0.8], r: 0.34 },
-  { id: "embed", label: "EMBED", p: [-2.7, 3.0, 1.4], r: 0.42 },
-  { id: "retrieve", label: "RETRIEVE", p: [-2.9, -2.7, -1.2], r: 0.42 },
-  { id: "memory", label: "MEMORY", p: [1.0, 1.7, 2.4], r: 0.36 },
-  { id: "agent", label: "AGENT", p: [0.2, -0.4, -0.2], r: 0.66, core: true },
-  { id: "tools", label: "TOOLS", p: [3.6, 2.7, 1.0], r: 0.4 },
-  { id: "act", label: "ACTION", p: [3.8, -2.6, -0.9], r: 0.4 },
-  { id: "output", label: "OUTPUT", p: [6.0, 0.1, 0.6], r: 0.44 },
+  { id: "input", label: "INPUT", p: [-2.4, 3.2, 0.4], r: 0.34 },
+  { id: "docs", label: "DOCS", p: [-2.0, -1.6, -0.8], r: 0.34 },
+  { id: "embed", label: "EMBED", p: [-0.2, 3.1, 1.4], r: 0.42 },
+  { id: "retrieve", label: "RETRIEVE", p: [-0.4, -2.8, -1.2], r: 0.42 },
+  { id: "memory", label: "MEMORY", p: [2.9, 1.7, 2.4], r: 0.36 },
+  { id: "agent", label: "AGENT", p: [2.4, -0.4, -0.2], r: 0.66, core: true },
+  { id: "tools", label: "TOOLS", p: [5.6, 2.7, 1.0], r: 0.4 },
+  { id: "act", label: "ACTION", p: [5.8, -2.6, -0.9], r: 0.4 },
+  { id: "output", label: "OUTPUT", p: [7.8, 0.1, 0.6], r: 0.44 },
 ];
 
 const EDGES = [
@@ -284,9 +286,10 @@ function GraphRig({ pointer, state }) {
     const scrollY = window.scrollY || 0;
     const vh = window.innerHeight || 1;
     const k = Math.min(1, scrollY / vh);
-    const targetZ = 15.5 + k * 7;
+    const targetZ = 16.5 + k * 7;
     camera.position.z += (targetZ - camera.position.z) * 0.05;
-    camera.lookAt(0, 0.1, 0);
+    // look slightly right to keep the right-shifted graph framed
+    camera.lookAt(1.6, 0.1, 0);
   });
 
   return (
@@ -318,7 +321,7 @@ export default function AgentGraph3D() {
     >
       <Canvas
         dpr={[1, 1.8]}
-        camera={{ position: [0, 0, 15.5], fov: 42 }}
+        camera={{ position: [0, 0, 16.5], fov: 42 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >
