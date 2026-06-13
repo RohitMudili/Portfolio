@@ -271,11 +271,13 @@ function GraphRig({ pointer, state }) {
     const t = s.clock.elapsedTime;
     const isDragging = state.dragging.id !== null;
 
-    // auto-rotate only when not dragging a node
+    // Gentle BOUNDED oscillation (not a full spin) so nodes never sweep
+    // left across the headline. Rocks ~±18° on Y with a slight X tilt.
     if (!isDragging) {
-      group.current.rotation.y += delta * 0.08;
-      group.current.rotation.x = Math.sin(t * 0.15) * 0.08;
-      group.current.rotation.y += pointer.current.x * 0.0008;
+      const yaw = Math.sin(t * 0.16) * 0.20 + pointer.current.x * 0.04;
+      const pitch = Math.sin(t * 0.13) * 0.06;
+      group.current.rotation.y += (yaw - group.current.rotation.y) * 0.05;
+      group.current.rotation.x += (pitch - group.current.rotation.x) * 0.05;
     }
 
     // camera parallax + scroll dolly (always)
@@ -286,14 +288,16 @@ function GraphRig({ pointer, state }) {
     const scrollY = window.scrollY || 0;
     const vh = window.innerHeight || 1;
     const k = Math.min(1, scrollY / vh);
-    const targetZ = 16.5 + k * 7;
+    const targetZ = 17.5 + k * 7;
     camera.position.z += (targetZ - camera.position.z) * 0.05;
     // look slightly right to keep the right-shifted graph framed
-    camera.lookAt(1.6, 0.1, 0);
+    camera.lookAt(1.0, 0.1, 0);
   });
 
   return (
-    <group ref={group}>
+    // base X offset pushes the whole graph onto the right half of the hero;
+    // the bounded oscillation happens around this offset so it never drifts left.
+    <group ref={group} position={[1.0, 0, 0]}>
       <Connections state={state} />
       {NODE_DEFS.map((n) => (
         <Node key={n.id} node={n} state={state} groupRef={group} setHot={setHot} />
@@ -321,7 +325,7 @@ export default function AgentGraph3D() {
     >
       <Canvas
         dpr={[1, 1.8]}
-        camera={{ position: [0, 0, 16.5], fov: 42 }}
+        camera={{ position: [0, 0, 17.5], fov: 42 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >
