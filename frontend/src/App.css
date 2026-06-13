@@ -1,188 +1,29 @@
-* {
-  scroll-behavior: smooth;
-}
-
 .App {
-  overflow-x: hidden;
-  background: #0a0a0a;
-}
-
-/* Neon Color Variables */
-:root {
-  --neon-cyan: #00f0ff;
-  --neon-pink: #ff006e;
-  --neon-purple: #8b5cf6;
-  --neon-green: #00ff88;
-  --neon-yellow: #ffeb3b;
-}
-
-/* Custom Animations */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes neon-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 16px var(--neon-cyan));
-  }
-  50% {
-    filter: drop-shadow(0 0 12px var(--neon-pink)) drop-shadow(0 0 24px var(--neon-pink));
-  }
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 1s ease-out;
-}
-
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
-}
-
-.neon-glow-animation {
-  animation: neon-glow 3s ease-in-out infinite;
-}
-
-/* Neon Glow Effects */
-.neon-text {
-  text-shadow: 
-    0 0 10px var(--neon-cyan),
-    0 0 20px var(--neon-cyan),
-    0 0 30px var(--neon-cyan),
-    0 0 40px var(--neon-pink);
-}
-
-.neon-border {
-  border: 2px solid var(--neon-cyan);
-  box-shadow: 
-    0 0 10px var(--neon-cyan),
-    inset 0 0 10px var(--neon-cyan);
-}
-
-.neon-glow-hover {
-  transition: all 0.3s ease;
-}
-
-.neon-glow-hover:hover {
-  box-shadow: 
-    0 0 20px var(--neon-cyan),
-    0 0 40px var(--neon-pink),
-    inset 0 0 20px rgba(0, 240, 255, 0.2);
-  border-color: var(--neon-pink);
-}
-
-/* Gradient Backgrounds */
-.neon-gradient-bg {
-  background: linear-gradient(
-    135deg,
-    #0a0a0a 0%,
-    #1a0a2e 25%,
-    #16213e 50%,
-    #0f3460 75%,
-    #0a0a0a 100%
-  );
-  background-size: 400% 400%;
-  animation: gradient-shift 15s ease infinite;
-}
-
-.neon-radial-gradient {
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(0, 240, 255, 0.1) 0%,
-    rgba(255, 0, 110, 0.1) 50%,
-    rgba(10, 10, 10, 1) 100%
-  );
-}
-
-/* Improve readability */
-p, li, span {
-  line-height: 1.7;
-}
-
-/* Smooth transitions for interactive elements */
-button, a {
-  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.3s ease;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-/* Neon Button Styles */
-.neon-button {
-  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
-  box-shadow: 
-    0 0 15px var(--neon-cyan),
-    0 0 30px var(--neon-pink);
-  border: none;
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
+  background-color: oklch(var(--paper));
 }
 
-.neon-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s;
+/* refined press feedback */
+button:active {
+  transform: scale(0.985);
 }
 
-.neon-button:hover::before {
-  left: 100%;
-}
-
-.neon-button:hover {
-  box-shadow: 
-    0 0 25px var(--neon-cyan),
-    0 0 50px var(--neon-pink),
-    0 0 75px var(--neon-purple);
-  transform: translateY(-2px);
-}
-
-/* Scrollbar Styling */
+/* scrollbar — ink on paper, no neon */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 11px;
+  height: 11px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: oklch(var(--paper-sunk));
 }
-
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-pink));
-  border-radius: 5px;
+  background: oklch(var(--ink) / 0.35);
+  border: 3px solid oklch(var(--paper-sunk));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--ink) / 0.55);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
-}
+/* a faint vignette of the grid at section edges via the body grid is enough;
+   no extra app-level decoration needed */

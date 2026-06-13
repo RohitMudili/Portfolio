@@ -1,61 +1,94 @@
-import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Card, CardContent } from './ui/card';
-import { skills } from '../data/mock';
+import React, { useRef, useState } from "react";
+import { skills } from "../data/mock";
+import TitleBlock from "./TitleBlock";
+import { useStaggerReveal, prefersReducedMotion } from "../lib/motion";
+
+/* Skills plotted on a proficiency axis instead of progress bars.
+   Each skill is a node at x = level%. The axis draws, nodes plot in. */
+function SkillRow({ group }) {
+  const ref = useStaggerReveal({ selector: "[data-node]", step: 55 });
+  const [hover, setHover] = useState(null);
+
+  return (
+    <div className="grid items-start gap-x-10 gap-y-4 border-b border-rule py-8 md:grid-cols-[minmax(180px,260px)_1fr]">
+      <div>
+        <h3 className="font-display text-lg font-semibold text-ink">{group.category}</h3>
+        <span className="label-mono">{group.items.length} entries</span>
+      </div>
+
+      <div ref={ref} className="relative pt-2">
+        {/* axis */}
+        <div className="relative h-px w-full bg-rule-strong">
+          {[0, 25, 50, 75, 100].map((t) => (
+            <span
+              key={t}
+              className="absolute -top-1 h-2 w-px bg-ink/25"
+              style={{ left: `${t}%` }}
+              aria-hidden
+            />
+          ))}
+        </div>
+        <div className="mt-2 flex justify-between">
+          <span className="label-mono text-[0.62rem]">FAMILIAR</span>
+          <span className="label-mono text-[0.62rem]">EXPERT</span>
+        </div>
+
+        {/* plotted nodes */}
+        <div className="relative mt-6 h-auto">
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            {group.items.map((s) => (
+              <div
+                key={s.name}
+                data-node
+                className="plot-in group/node flex items-center gap-2"
+                onMouseEnter={() => setHover(s.name)}
+                onMouseLeave={() => setHover(null)}
+              >
+                <span
+                  className="relative grid h-3 w-3 place-items-center rounded-full border border-ink"
+                  style={{
+                    backgroundColor:
+                      s.level >= 85 ? "oklch(var(--accent))" : "oklch(var(--paper))",
+                  }}
+                >
+                  {s.level >= 85 && (
+                    <span className="absolute h-1 w-1 rounded-full bg-paper" />
+                  )}
+                </span>
+                <span className="font-mono text-[0.82rem] text-ink-soft transition-colors group-hover/node:text-ink">
+                  {s.name}
+                </span>
+                <span
+                  className={`font-mono text-[0.7rem] tabular-nums transition-opacity ${
+                    hover === s.name ? "text-accent opacity-100" : "text-ink-faint opacity-60"
+                  }`}
+                >
+                  {s.level}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-24 bg-gradient-to-b from-gray-950 to-black relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,240,255,0.05),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(255,0,110,0.05),transparent_50%)]"></div>
-      
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-light tracking-tight text-white mb-4">
-            Technical Skills
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 mx-auto"></div>
+    <section id="skills" className="relative bg-paper-sunk py-[clamp(5rem,12vh,9rem)]">
+      <div className="mx-auto max-w-content px-6">
+        <TitleBlock index="02 — STACK" sub="TOOLS / FRAMEWORKS" title="What I build with" />
+
+        <div className="mt-12 border-t border-rule-strong">
+          {skills.map((group) => (
+            <SkillRow key={group.category} group={group} />
+          ))}
         </div>
 
-        <Tabs defaultValue="0" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-transparent h-auto mb-12">
-            {skills.map((skillGroup, index) => (
-              <TabsTrigger
-                key={index}
-                value={index.toString()}
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 border-2 border-gray-700 text-gray-300 hover:border-cyan-400 py-3 text-xs md:text-sm whitespace-normal h-auto min-h-[3rem] transition-all"
-              >
-                {skillGroup.category}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
-          {skills.map((skillGroup, groupIndex) => (
-            <TabsContent key={groupIndex} value={groupIndex.toString()} className="mt-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                {skillGroup.items.map((skill, skillIndex) => (
-                  <Card key={skillIndex} className="border-2 border-gray-800 bg-gray-900/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-cyan-500/20 hover:border-cyan-400 transition-all duration-300">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm font-medium text-white">{skill.name}</span>
-                        <span className="text-xs text-cyan-400 font-normal">{skill.level}%</span>
-                      </div>
-                      <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all duration-1000 ease-out"
-                          style={{ 
-                            width: `${skill.level}%`,
-                            background: `linear-gradient(90deg, #00f0ff ${skill.level}%, #ff006e 100%)`,
-                            boxShadow: '0 0 10px rgba(0, 240, 255, 0.5)'
-                          }}
-                        ></div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+        <p className="label-mono mt-6">
+          ● filled node = expert proficiency (85+) · ○ open node = working proficiency
+        </p>
       </div>
     </section>
   );

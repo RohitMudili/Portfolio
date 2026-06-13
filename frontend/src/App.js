@@ -9,19 +9,25 @@ import Projects from "./components/Projects";
 import AchievementsEducation from "./components/AchievementsEducation";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Cursor from "./components/Cursor";
 import { Toaster } from "./components/ui/toaster";
+import { useLenis } from "./lib/motion";
 
 function App() {
+  useLenis();
   return (
     <div className="App">
+      <Cursor />
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <AchievementsEducation />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <AchievementsEducation />
+        <Contact />
+      </main>
       <Footer />
       <Toaster />
     </div>

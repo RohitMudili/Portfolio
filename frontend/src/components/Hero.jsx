@@ -1,92 +1,242 @@
-import React from 'react';
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
-import { Button } from './ui/button';
-import { personalInfo } from '../data/mock';
+import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { Github, Linkedin, Mail, ArrowDownRight } from "lucide-react";
+import { personalInfo } from "../data/mock";
+import { gsap, ScrollTrigger, prefersReducedMotion, scrollToId, canRender3D, useMagnetic } from "../lib/motion";
 
-const Hero = () => {
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+const AgentGraph3D = lazy(() => import("./three/AgentGraph3D"));
+
+/* The hero schematic: a stylized agent / RAG dataflow drawn as engineering
+   line-work. It plots itself on page load — nodes scale in, connectors draw,
+   labels clip up — the "drawing happening" overture. */
+function HeroSchematic({ svgRef }) {
+  // node coordinates on a 0–1000 / 0–620 canvas
+  const nodes = [
+    { x: 90, y: 150, r: 18, label: "INPUT" },
+    { x: 90, y: 470, r: 18, label: "DOCS" },
+    { x: 340, y: 120, r: 24, label: "EMBED" },
+    { x: 340, y: 500, r: 24, label: "RETRIEVE" },
+    { x: 600, y: 310, r: 34, label: "AGENT" },
+    { x: 860, y: 170, r: 20, label: "TOOLS" },
+    { x: 860, y: 460, r: 20, label: "OUTPUT" },
+  ];
+  const edges = [
+    [0, 2], [1, 3], [2, 4], [3, 4], [4, 5], [4, 6], [5, 4],
+  ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+    <svg
+      ref={svgRef}
+      viewBox="0 0 1000 620"
+      className="h-full w-full"
+      fill="none"
+      aria-hidden="true"
+    >
+      {/* dimension frame ticks */}
+      <g stroke="oklch(var(--rule-strong))" strokeWidth="1">
+        <path data-draw d="M 24 24 L 76 24 M 24 24 L 24 76" />
+        <path data-draw d="M 976 596 L 924 596 M 976 596 L 976 544" />
+      </g>
 
-        {/* Professional gradient orbs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl"></div>
-      </div>
+      {/* connectors */}
+      <g stroke="oklch(var(--accent))" strokeWidth="1.6" strokeLinecap="round">
+        {edges.map(([a, b], i) => {
+          const A = nodes[a], B = nodes[b];
+          const mx = (A.x + B.x) / 2;
+          return (
+            <path
+              key={i}
+              data-draw
+              d={`M ${A.x} ${A.y} C ${mx} ${A.y}, ${mx} ${B.y}, ${B.x} ${B.y}`}
+            />
+          );
+        })}
+      </g>
 
-      <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-        <div className="space-y-6 animate-fade-in">
-          <h1 className="text-7xl md:text-9xl font-light tracking-tight text-white neon-text">
-            {personalInfo.name}
-          </h1>
-          
-          <p className="text-xl md:text-2xl font-light text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400 max-w-3xl mx-auto">
-            {personalInfo.title}
-          </p>
+      {/* flowing data pulses along the central edge */}
+      <g className="hero-pulse" stroke="oklch(var(--accent))" strokeWidth="2.4" strokeLinecap="round" opacity="0">
+        <path d={`M ${nodes[2].x} ${nodes[2].y} C 470 ${nodes[2].y}, 470 ${nodes[4].y}, ${nodes[4].x} ${nodes[4].y}`} strokeDasharray="2 26" />
+      </g>
 
-          <p className="text-base md:text-lg font-normal text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            {personalInfo.tagline}
-          </p>
-
-          <div className="flex items-center justify-center space-x-4 pt-8">
-            <Button
-              onClick={() => scrollToSection('projects')}
-              className="neon-button text-white font-medium px-8 py-6 text-base transition-transform hover:scale-105"
+      {/* nodes */}
+      <g>
+        {nodes.map((n, i) => (
+          <g key={i} className="hero-node" style={{ transformOrigin: `${n.x}px ${n.y}px` }}>
+            <circle cx={n.x} cy={n.y} r={n.r} fill="oklch(var(--paper))" stroke="oklch(var(--ink))" strokeWidth="1.4" />
+            <circle cx={n.x} cy={n.y} r={n.r * 0.32} fill="oklch(var(--accent))" />
+            <text
+              x={n.x}
+              y={n.y + n.r + 18}
+              textAnchor="middle"
+              className="hero-node-label"
+              fill="oklch(var(--ink-faint))"
+              fontFamily="Spline Sans Mono, monospace"
+              fontSize="13"
+              letterSpacing="1.5"
             >
-              View Projects
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                alert('Resume download will be implemented in backend');
-              }}
-              className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400/10 px-8 py-6 text-base transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/50"
-            >
-              Download Resume
-            </Button>
+              {n.label}
+            </text>
+          </g>
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+const Hero = () => {
+  const svgRef = useRef(null);
+  const rootRef = useRef(null);
+  const [use3D, setUse3D] = useState(false);
+  const magBtn = useMagnetic(0.35);
+
+  useEffect(() => {
+    setUse3D(canRender3D());
+  }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const reduce = prefersReducedMotion();
+    const svg = svgRef.current; // null in 3D mode
+
+    // ---- SVG schematic priming (only when the SVG fallback is mounted) ----
+    let paths = [];
+    if (svg) {
+      paths = Array.from(svg.querySelectorAll("[data-draw]"));
+      paths.forEach((p) => {
+        const len = p.getTotalLength ? p.getTotalLength() : 800;
+        p.style.strokeDasharray = len;
+        p.style.strokeDashoffset = reduce ? 0 : len;
+      });
+      if (reduce) gsap.set(svg.querySelectorAll(".hero-node"), { opacity: 1, scale: 1 });
+    }
+
+    if (reduce) return;
+
+    const labels = root.querySelectorAll("[data-hero-line]");
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+    // text overture — runs in BOTH 3D and SVG modes
+    tl.from(root.querySelectorAll("[data-hero-tick]"), {
+      scaleX: 0, transformOrigin: "left", duration: 0.7, stagger: 0.08,
+    }).to(labels, { clipPath: "inset(0 0 0 0)", y: 0, opacity: 1, duration: 0.95, stagger: 0.12 }, "-=0.4");
+
+    let st;
+    if (svg) {
+      const nodes = svg.querySelectorAll(".hero-node");
+      gsap.set(nodes, { opacity: 0, scale: 0.3, transformOrigin: "center" });
+      tl.to(paths, { strokeDashoffset: 0, duration: 1.2, stagger: 0.07 }, "-=0.7")
+        .to(nodes, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.06 }, "-=0.9")
+        .to(svg.querySelector(".hero-pulse"), { opacity: 1, duration: 0.4 }, "-=0.2")
+        .add(() => {
+          gsap.to(svg.querySelector(".hero-pulse path"), {
+            strokeDashoffset: -280, duration: 2.2, ease: "none", repeat: -1,
+          });
+        });
+      st = gsap.to(svg, {
+        yPercent: 14, ease: "none",
+        scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: true },
+      });
+    }
+
+    return () => {
+      tl.kill();
+      if (st) { st.scrollTrigger && st.scrollTrigger.kill(); st.kill(); }
+    };
+  }, [use3D]);
+
+  return (
+    <section
+      id="home"
+      ref={rootRef}
+      className="relative overflow-hidden pt-28 pb-16 sm:pt-32 lg:min-h-[100svh] lg:pb-0"
+    >
+      <div className="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-y-10 px-6 lg:min-h-[78svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-x-8">
+        {/* LEFT — title block + wordmark + copy.
+            Container ignores pointer events so the 3D graph behind/beside it
+            stays grabbable through empty space; interactive children opt back in. */}
+        <div className="relative z-[1] pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
+          <div className="flex items-center gap-4">
+            <span data-hero-tick className="block h-px w-12 rule" />
+            <span className="label-mono">SHEET 00 — PORTFOLIO</span>
+            <span data-hero-tick className="hidden h-px w-24 rule sm:block" />
+            <span className="label-mono hidden text-accent sm:inline">REV 2026</span>
           </div>
 
-          <div className="flex items-center justify-center space-x-6 pt-6">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-cyan-400 transition-all hover:scale-110 transform hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]"
+          <p data-hero-line className="clip-up label-mono mb-4 mt-10 text-accent">
+            AI Engineer · LLM / RAG / Voice Agents
+          </p>
+          <h1 className="font-expanded font-extrabold uppercase leading-[0.84] tracking-[-0.04em] text-ink">
+            <span data-hero-line className="clip-up block text-[clamp(2.9rem,11.5vw,7rem)]">Rohit</span>
+            <span data-hero-line className="clip-up block text-[clamp(2.9rem,11.5vw,7rem)]">Mudili</span>
+          </h1>
+
+          <p
+            data-hero-line
+            className="clip-up mt-7 max-w-prose text-lg leading-relaxed text-ink-soft"
+          >
+            I build intelligent systems that bridge AI innovation with real-world
+            automation — LLM agents, RAG architectures, and sub-second voice
+            interfaces.
+          </p>
+
+          <div data-hero-line className="clip-up mt-9 flex flex-wrap items-center gap-4">
+            <button
+              ref={magBtn}
+              onClick={() => scrollToId("projects")}
+              className="group inline-flex items-center gap-3 bg-ink px-7 py-4 font-mono text-sm uppercase tracking-wider text-paper transition-colors will-change-transform hover:bg-accent"
             >
-              <Github size={24} />
-            </a>
+              View the work
+              <ArrowDownRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+            </button>
             <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-pink-400 transition-all hover:scale-110 transform hover:drop-shadow-[0_0_8px_rgba(255,0,110,0.8)]"
+              href="/resume.pdf"
+              className="inline-flex items-center gap-2 border border-ink px-7 py-4 font-mono text-sm uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-paper"
             >
-              <Linkedin size={24} />
+              Resume
             </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="text-gray-300 hover:text-purple-400 transition-all hover:scale-110 transform hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]"
-            >
-              <Mail size={24} />
-            </a>
+            <div className="ml-1 flex items-center gap-1">
+              {[
+                { href: personalInfo.github, Icon: Github, label: "GitHub" },
+                { href: personalInfo.linkedin, Icon: Linkedin, label: "LinkedIn" },
+                { href: `mailto:${personalInfo.email}`, Icon: Mail, label: "Email" },
+              ].map(({ href, Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="grid h-11 w-11 place-items-center border border-transparent text-ink-soft transition-colors hover:border-rule-strong hover:text-accent"
+                >
+                  <Icon size={19} strokeWidth={1.6} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
-        <button
-          onClick={() => scrollToSection('about')}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce text-cyan-400 hover:text-pink-400 transition-colors hover:drop-shadow-[0_0_10px_rgba(0,240,255,0.8)]"
-        >
-          <ArrowDown size={32} />
-        </button>
+        {/* RIGHT — live 3D agent graph (capable devices) or self-drawing SVG.
+            z-[2] so it sits ABOVE the text column → nodes are catchable wherever
+            the graph is visible, including the parts that overlap the headline area. */}
+        <div className="relative order-first w-full lg:order-none">
+          {use3D ? (
+            <div className="relative z-[2] mx-auto aspect-[10/8] w-full max-w-[640px] pointer-events-auto lg:absolute lg:right-0 lg:top-1/2 lg:aspect-auto lg:h-[92svh] lg:w-[60vw] lg:max-w-none lg:-translate-y-1/2">
+              <Suspense fallback={null}>
+                <AgentGraph3D />
+              </Suspense>
+            </div>
+          ) : (
+            <div className="pointer-events-none mx-auto aspect-[10/6.2] w-full max-w-[680px] opacity-95 lg:max-w-none lg:translate-x-[4%]">
+              <HeroSchematic svgRef={svgRef} />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* bottom coordinate readout */}
+      <div className="mx-auto mt-12 flex max-w-content items-end justify-between px-6 lg:absolute lg:inset-x-0 lg:bottom-6 lg:z-[1] lg:mt-0">
+        <span className="label-mono">IIIT NAGPUR · CSE · 2022—2026</span>
+        <span className="label-mono hidden md:inline">BENGALURU 12.97°N 77.59°E</span>
       </div>
     </section>
   );

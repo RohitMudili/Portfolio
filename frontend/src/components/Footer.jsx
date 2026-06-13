@@ -1,80 +1,68 @@
-import React from 'react';
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
-import { personalInfo } from '../data/mock';
+import React from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { personalInfo } from "../data/mock";
+import { scrollToId } from "../lib/motion";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
+  const year = new Date().getFullYear();
   return (
-    <footer className="bg-black text-white py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 className="text-2xl font-light mb-4">Rohit Mudili</h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              AI Engineer specializing in LLM-powered automation and intelligent systems.
-            </p>
-          </div>
+    <footer className="relative border-t border-ink bg-paper">
+      {/* giant end-stamp wordmark */}
+      <div className="mx-auto max-w-content px-6 pt-16">
+        <button
+          onClick={() => scrollToId("home")}
+          className="block w-full text-left"
+          aria-label="Back to top"
+        >
+          <span className="font-expanded text-[clamp(3rem,16vw,12rem)] font-extrabold uppercase leading-[0.8] tracking-[-0.04em] text-ink transition-colors hover:text-accent">
+            Rohit Mudili
+          </span>
+        </button>
+      </div>
 
-          <div>
-            <h4 className="text-sm font-medium mb-4 text-gray-300">Quick Links</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li>
-                <a href="#about" className="hover:text-white transition-colors">
-                  About
-                </a>
+      {/* title block grid */}
+      <div className="mx-auto mt-12 grid max-w-content gap-y-8 border-t border-rule-strong px-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <span className="label-mono">ROLE</span>
+          <p className="mt-2 text-sm text-ink-soft">AI Engineer — LLM, RAG, voice agents & automation.</p>
+        </div>
+        <div>
+          <span className="label-mono">INDEX</span>
+          <ul className="mt-2 space-y-1.5">
+            {[["About", "about"], ["Work", "projects"], ["Experience", "experience"], ["Contact", "contact"]].map(([l, id]) => (
+              <li key={id}>
+                <button onClick={() => scrollToId(id)} className="text-sm text-ink-soft transition-colors hover:text-accent">
+                  {l}
+                </button>
               </li>
-              <li>
-                <a href="#projects" className="hover:text-white transition-colors">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="#experience" className="hover:text-white transition-colors">
-                  Experience
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-white transition-colors">
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-medium mb-4 text-gray-300">Connect</h4>
-            <div className="flex space-x-4">
+            ))}
+          </ul>
+        </div>
+        <div>
+          <span className="label-mono">CONNECT</span>
+          <div className="mt-2 flex gap-2">
+            {[
+              { Icon: Github, href: personalInfo.github, label: "GitHub" },
+              { Icon: Linkedin, href: personalInfo.linkedin, label: "LinkedIn" },
+              { Icon: Mail, href: `mailto:${personalInfo.email}`, label: "Email" },
+            ].map(({ Icon, href, label }) => (
               <a
-                href={personalInfo.github}
-                target="_blank"
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
+                aria-label={label}
+                className="grid h-10 w-10 place-items-center border border-rule-strong text-ink-soft transition-colors hover:border-ink hover:text-accent"
               >
-                <Github size={18} />
+                <Icon size={17} strokeWidth={1.6} />
               </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
-              >
-                <Linkedin size={18} />
-              </a>
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
-              >
-                <Mail size={18} />
-              </a>
-            </div>
+            ))}
           </div>
         </div>
-
-        <div className="border-t border-gray-800 pt-8">
-          <p className="text-center text-sm text-gray-400">
-            © {currentYear} Rohit Mudili. All rights reserved.
-          </p>
+        <div>
+          <span className="label-mono">DRAWN</span>
+          <p className="mt-2 text-sm text-ink-soft">Nagpur, India · {year}</p>
+          <p className="label-mono mt-3">© {year} — ALL RIGHTS RESERVED</p>
         </div>
       </div>
     </footer>

@@ -1,216 +1,233 @@
-// Mock data for Rohit Mudili's Portfolio
+// Portfolio data for Rohit Mudili — sourced from resume (2026) + github.com/RohitMudili
 
 export const personalInfo = {
   name: "Rohit Mudili",
-  title: "AI Engineer | Machine Learning | Deep Learning",
-  tagline: "Building intelligent systems that bridge AI innovation with real-world automation",
+  title: "AI Engineer · Agentic Systems · LLM / RAG / Voice",
+  tagline:
+    "Building intelligent systems that bridge AI innovation with real-world automation",
   email: "rohitmudili5@gmail.com",
   phone: "+91 8919878337",
-  location: "Nagpur, Maharashtra, India",
+  location: "Bengaluru, India",
   linkedin: "https://www.linkedin.com/in/rohit-mudili",
   github: "https://github.com/RohitMudili",
-  bio: "I'm an AI Engineer currently pursuing B.Tech in Computer Science at IIIT Nagpur (Class of 2026). I specialize in building LLM-powered automation systems, RAG architectures, and real-time AI voice agents. With experience at Es Magico AI and AIVC Talent, I've developed systems processing 1,200+ workflows, achieving 90% reuse efficiency and sub-600ms latency voice agents. I'm passionate about leveraging cutting-edge AI to solve complex automation challenges and create intelligent, scalable solutions."
+  bio: "I'm an AI engineer building agentic systems — autonomous multi-agent frameworks, RAG architectures, and real-time voice agents. I'm currently at Plum Benefits building a multi-agentic support system on LangGraph, and a CSE graduate from IIIT Nagpur. I care about the unglamorous parts — latency, recovery, retrieval quality, autonomous decision-making — because that's where AI either works or doesn't.",
 };
 
 export const highlights = [
-  {
-    icon: "GraduationCap",
-    text: "B.Tech CSE @ IIIT Nagpur (2022-2026)"
-  },
-  {
-    icon: "Briefcase",
-    text: "AI Engineer Intern @ Es Magico AI"
-  },
-  {
-    icon: "Trophy",
-    text: "Top 5 at IIT BHU Stellar Analytics Competition"
-  },
-  {
-    icon: "Rocket",
-    text: "Top 100 in Amazon ML Challenge (1000+ teams)"
-  }
+  { icon: "Briefcase", text: "AI Engineer @ Plum Benefits — agentic support systems" },
+  { icon: "GraduationCap", text: "B.Tech CSE, IIIT Nagpur — Graduated" },
+  { icon: "Trophy", text: "Top 5 · Stellar Analytics, IIT BHU (400+ entrants)" },
+  { icon: "Rocket", text: "Top 100 · Amazon ML Challenge (1000+ teams)" },
+];
+
+// Headline metrics — every figure is sourced directly from the resume.
+export const metrics = [
+  { value: 90, suffix: "%", label: "Workflow reuse", note: "similarity detection" },
+  { value: 600, prefix: "<", suffix: "ms", label: "Voice-agent latency", note: "6 live business agents" },
+  { value: 1000, suffix: "+", label: "Docs in RAG index", note: "LlamaIndex · FAISS" },
+  { value: 60, suffix: "%", label: "AI search visibility ↑", note: "11 scoring algorithms" },
 ];
 
 export const skills = [
   {
-    category: "Programming Languages",
+    category: "Languages",
     items: [
-      { name: "Python", level: 90 },
-      { name: "C/C++", level: 70 },
-      { name: "SQL (Postgres)", level: 75 },
-      { name: "JavaScript", level: 50 },
-      { name: "HTML/CSS", level: 50 }
-    ]
+      { name: "Python", level: 92 },
+      { name: "TypeScript", level: 80 },
+      { name: "C/C++", level: 72 },
+      { name: "SQL (Postgres)", level: 78 },
+      { name: "JavaScript", level: 70 },
+      { name: "HTML/CSS", level: 65 },
+    ],
   },
   {
-    category: "AI/ML Frameworks",
+    category: "Agentic & LLM",
     items: [
-      { name: "TensorFlow", level: 90 },
-      { name: "PyTorch", level: 80 },
-      { name: "Scikit-learn", level: 90 }
-    ]
+      { name: "LangGraph", level: 90 },
+      { name: "LangChain", level: 88 },
+      { name: "LangSmith", level: 82 },
+      { name: "CrewAI", level: 85 },
+      { name: "N8N", level: 80 },
+    ],
   },
   {
-    category: "Agentic Frameworks",
+    category: "Backend & Infra",
     items: [
-      { name: "Langgraph", level: 85 },
-      { name: "Langchain", level: 85 },
-      { name: "Google Agent Development Kit (Google ADK)", level: 80 },
-      { name: "CrewAI", level: 90 }
-    ]
-  },
-  {
-    category: "Backend Frameworks",
-    items: [
+      { name: "FastAPI", level: 90 },
       { name: "Node.js", level: 80 },
-      { name: "Flask", level: 85 },
-      { name: "FastAPI", level: 90 }
-    ]
+      { name: "Flask", level: 82 },
+      { name: "Docker", level: 80 },
+      { name: "Kubernetes", level: 70 },
+      { name: "GCP", level: 74 },
+      { name: "Redis", level: 75 },
+    ],
   },
   {
-    category: "Libraries & Tools",
+    category: "ML & Data",
     items: [
+      { name: "TensorFlow", level: 85 },
+      { name: "PyTorch", level: 80 },
+      { name: "Scikit-learn", level: 88 },
       { name: "Pandas", level: 90 },
       { name: "NumPy", level: 85 },
-      { name: "Matplotlib", level: 80 },
-      { name: "PyPDF2", level: 80 },
-      { name: "Pinecone", level: 85 },
-      { name: "N8N", level: 85 }
-    ]
+    ],
   },
   {
-    category: "Developer Tools",
+    category: "Retrieval & Stores",
     items: [
-      { name: "Git", level: 90 },
-      { name: "Docker", level: 75 },
-      { name: "Google Cloud Platform", level: 70 },
-      { name: "VS Code", level: 95 },
-      { name: "Visual Studio", level: 85 },
-      { name: "PyCharm", level: 85 }
-    ]
-  }
+      { name: "Neo4j", level: 82 },
+      { name: "Pinecone", level: 84 },
+      { name: "FAISS", level: 85 },
+      { name: "PostgreSQL", level: 78 },
+    ],
+  },
 ];
 
 export const experiences = [
   {
     id: 1,
-    company: "Es Magico AI",
+    company: "Plum Benefits",
     role: "AI Engineer Intern",
-    duration: "June 2025 – Present",
-    location: "Mumbai — On-site",
+    duration: "Dec 2025 – Present",
+    location: "Bengaluru — On-site",
+    current: true,
     achievements: [
-      "Developed an AI-powered automation system using Python, TypeScript and LLM models, achieving 90% workflow reuse through intelligent similarity detection and pattern recognition",
-      "Built a workflow consolidation engine using LangChain and OpenAI APIs that optimizes automation sequences, reducing redundant steps by 40% across 1,200+ lines of workflow processing code",
-      "Implemented ChromaDB vector database with semantic search using Google Gemini embeddings, supporting 100+ automation patterns with cross-platform compatibility",
-      "Created a 3-tier AI error recovery system with intelligent element detection algorithms and dynamic file handling, achieving 85% success rate in workflow replay across diverse applications"
+      "Developing an AI-powered multi-agentic central support system using LangGraph and LangSmith — enabling complex actions like booking management, rescheduling, and automated refund initiation.",
+      "Architected a skills-based agent framework capable of autonomous decision-making across cross-functional APIs, moving beyond retrieval-based Q&A to real task execution.",
+      "Collaborated with business leadership and cross-functional teams to map complex API workflows into agentic skills, ensuring seamless integration with enterprise systems.",
     ],
-    techStack: ["Python", "TypeScript", "LangChain", "OpenAI APIs", "ChromaDB", "Google Gemini"]
+    techStack: ["Python", "LangGraph", "LangSmith", "GCP", "Redis", "Kubernetes", "Node.js", "TypeScript"],
   },
   {
     id: 2,
+    company: "Es Magico AI Experiences",
+    role: "AI Engineer Intern",
+    duration: "Jun 2025 – Nov 2025",
+    location: "Mumbai — On-site",
+    achievements: [
+      "Developed an AI-powered browser automation system using Python, TypeScript, and LLM models, achieving 90% workflow reuse through intelligent similarity detection.",
+      "Contributed to 'Upskillr', an AI e-learning platform transforming presentations into video lessons via user-provided AI avatars and voice synthesis.",
+      "Developed a real-time Q&A voice agent that extracts information from presentation materials to provide instant, context-aware answers.",
+    ],
+    techStack: ["Python", "TypeScript", "LLMs", "Voice Synthesis", "Browser Automation"],
+  },
+  {
+    id: 3,
     company: "AIVC Talent",
     role: "AI Developer Intern",
-    duration: "January 2025 – June 2025",
+    duration: "Jan 2025 – Jun 2025",
     location: "Remote — San Juan",
     achievements: [
-      "Built a real-time AI voice agent platform using Groq LLama-3.3-70b and GPT-4o with Deepgram STT and fine tuned huge datasets on the IndicTTS model, achieving <600ms latency for 6 pre-configured business agents",
-      "Implemented RAG with LlamaIndex and FAISS processing 1,000+ knowledge documents, enabling automated lead qualification with 4 CRM integrations (Podio, RESimpli, Pipedrive, FollowUpBoss)",
-      "Developed an AI content optimization system using GPT-4o with 8 GEO techniques and 11 scoring algorithms, improving AI search visibility by 40-60% across 100+ client evaluations"
+      "Built a real-time AI voice agent platform using Groq Llama-3 and GPT-4o with Deepgram STT, achieving <600ms latency for 6 pre-configured business agents.",
+      "Implemented RAG with LlamaIndex and FAISS processing 1,000+ knowledge documents, enabling automated lead qualification with 4 CRM integrations.",
+      "Developed an AI content optimization system using 11 scoring algorithms, improving AI search visibility by 40–60% across 100+ client evaluations.",
     ],
-    techStack: ["Groq LLama-3.3-70b", "GPT-4o", "Deepgram", "IndicTTS", "LlamaIndex", "FAISS", "Python"]
-  }
+    techStack: ["Groq Llama-3", "GPT-4o", "Deepgram", "LlamaIndex", "FAISS", "Python"],
+  },
 ];
 
 export const projects = [
   {
     id: 1,
-    title: "DocTel – Personalised PostOP Agent",
-    description: "AI-powered personalised agent for post-surgical recovery assistance",
-    longDescription: "Built an AI-powered personalised agent to assist in post-surgical recovery using patient logs and symptom monitoring. Processed and analyzed 20,000+ data points including mood, temperature, pain, and wound health for early complication alerts. Designed interactive workflows to deliver personalized recovery guidance in real-time scenarios.",
-    image: "https://images.unsplash.com/photo-1512998844734-cd2cca565822?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHRlY2hub2xvZ3l8ZW58MHx8fGJsYWNrX2FuZF93aGl0ZXwxNzYxNDkzNDUyfDA&ixlib=rb-4.1.0&q=85",
-    techStack: ["Python", "Pandas", "FastAPI", "Matplotlib", "Scikit-learn"],
-    github: "https://github.com/RohitMudili/DocTel",
+    title: "Relational DB → GraphRAG",
+    alt: "Knowledge-graph visualization of nodes and relationships",
+    description: "Automated transformation of relational databases into semantically-enriched knowledge graphs with natural-language querying.",
+    longDescription:
+      "A production-ready system that converts PostgreSQL schemas into Neo4j knowledge graphs with AI-powered querying. Enables multi-hop relationship exploration and intent-based semantic search, plus a Natural Language Query interface that extracts complex graph analytics and hidden patterns from plain English.",
+    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?crop=entropy&cs=srgb&fm=jpg&w=1600&q=80",
+    techStack: ["Python", "Neo4j", "PostgreSQL", "LangChain", "OpenAI", "Docker"],
+    github: "https://github.com/RohitMudili/relational-to-graphrag",
     liveDemo: null,
-    impact: "Enables proactive post-operative care through AI-driven health monitoring"
+    impact: "AI knowledge graphs queryable in plain English",
   },
   {
     id: 2,
     title: "FusionIQ Query Engine",
-    description: "AI-driven multi-modal query processing system with RAG capabilities",
-    longDescription: "Engineered an AI-driven system to process diverse queries (policy retrieval, weather, web search) via modular FastAPI endpoints and graph workflows. Integrated document chunk extraction and vector embedding (Pinecone) for retrieval-augmented generation. Orchestrated CrewAI for asynchronous REST API management ensuring seamless query routing.",
-    image: "https://images.unsplash.com/photo-1482053450283-3e0b78b09a70?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMHRlY2hub2xvZ3l8ZW58MHx8fGJsYWNrX2FuZF93aGl0ZXwxNzYxNDkzNDUyfDA&ixlib=rb-4.1.0&q=85",
+    alt: "Abstract multi-modal data routing visualization",
+    description: "Multi-modal AI query engine with RAG, graph workflows, and agentic routing.",
+    longDescription:
+      "An AI-driven system that processes diverse queries (policy retrieval, weather, web search) via modular FastAPI endpoints and graph workflows. Combines document chunk extraction and Pinecone vector embeddings for RAG, with CrewAI orchestrating asynchronous REST APIs for seamless query routing.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=srgb&fm=jpg&w=1600&q=80",
     techStack: ["Python", "FastAPI", "CrewAI", "LangChain", "Pinecone"],
-    github: null,
+    github: "https://github.com/RohitMudili/FusionIQ",
     liveDemo: null,
-    impact: "Unified query processing across multiple data sources with seamless routing"
+    impact: "Unified query routing across multiple data sources",
   },
   {
     id: 3,
-    title: "Ticket System",
-    description: "ML-based support ticket classification and routing system",
-    longDescription: "Automated ticket categorization with priority assignment, predictive ticket routing to appropriate support teams, and analysis of ticket resolution patterns.",
-    image: "https://images.unsplash.com/photo-1636153849665-08c0ac02b36e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMHRlY2hub2xvZ3l8ZW58MHx8fGJsYWNrX2FuZF93aGl0ZXwxNzYxNDkzNDUyfDA&ixlib=rb-4.1.0&q=85",
-    techStack: ["Jupyter Notebook", "Python", "Machine Learning"],
-    github: "https://github.com/RohitMudili/Ticket-system",
+    title: "Mandelbrot — CUDA + MPI",
+    alt: "Fractal Mandelbrot set render",
+    description: "High-performance fractal renderer with block-cyclic GPU/cluster distribution.",
+    longDescription:
+      "A parallel Mandelbrot renderer combining CUDA, MPI, and OpenMP with block-cyclic workload distribution across GPUs and nodes — systems-level performance engineering for compute-heavy visualization.",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?crop=entropy&cs=srgb&fm=jpg&w=1600&q=80",
+    techStack: ["C++", "CUDA", "MPI", "OpenMP"],
+    github: "https://github.com/RohitMudili/mandelbrot-mpi-cuda-omp",
     liveDemo: null,
-    impact: "Streamlined support ticket management with intelligent classification"
+    impact: "Parallel compute across GPUs + cluster nodes",
   },
   {
     id: 4,
-    title: "Breast Cancer Prediction",
-    description: "Machine learning model for breast cancer detection and classification",
-    longDescription: "Binary classification model for malignant/benign tumor detection with feature engineering on clinical datasets and comprehensive model evaluation.",
-    image: "https://images.unsplash.com/photo-1632059368252-be6d65abc4e2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NjZ8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0fGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc2MTQ5MzQ1OHww&ixlib=rb-4.1.0&q=85",
-    techStack: ["Jupyter Notebook", "Python", "Scikit-learn"],
-    github: "https://github.com/RohitMudili/breast-cancer-prediction",
+    title: "Prompt-Opt",
+    alt: "Abstract optimization gradient visualization",
+    description: "Systematic prompt optimization framework for LLM pipelines.",
+    longDescription:
+      "A framework for optimizing prompts against measurable objectives — iterating prompt variants and scoring outputs to converge on higher-quality, more reliable LLM behaviour.",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?crop=entropy&cs=srgb&fm=jpg&w=1600&q=80",
+    techStack: ["Python", "LLMs", "Evaluation"],
+    github: "https://github.com/RohitMudili/prompt-opt",
     liveDemo: null,
-    impact: "Medical ML for early cancer detection"
+    impact: "Measurable, repeatable prompt quality gains",
   },
   {
     id: 5,
-    title: "Unsupervised Anomaly Detection",
-    description: "Anomaly detection system using unsupervised learning techniques",
-    longDescription: "Pattern recognition without labeled data, real-time anomaly identification, and advanced outlier detection algorithms.",
-    image: "https://images.pexels.com/photos/158826/structure-light-led-movement-158826.jpeg",
-    techStack: ["Jupyter Notebook", "Python", "Machine Learning"],
-    github: "https://github.com/RohitMudili/Unsupervised-anomoly-detection",
+    title: "DocTel — Post-Op Agent",
+    alt: "Health monitoring data streams visualization",
+    description: "Personalised AI agent for post-surgical recovery monitoring.",
+    longDescription:
+      "An AI agent that assists post-surgical recovery using patient logs and symptom monitoring — analyzing mood, temperature, pain, and wound-health signals to surface early complication alerts and deliver personalized recovery guidance in real time.",
+    image: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?crop=entropy&cs=srgb&fm=jpg&w=1600&q=80",
+    techStack: ["Python", "Pandas", "FastAPI", "Scikit-learn"],
+    github: "https://github.com/RohitMudili/DocTel",
     liveDemo: null,
-    impact: "Intelligent anomaly detection for security and monitoring"
+    impact: "Proactive, AI-driven post-operative care",
   },
   {
     id: 6,
-    title: "Relational DB to Graph RAG",
-    description: "Transform relational databases into semantically-enriched knowledge graphs with AI-powered querying",
-    longDescription: "Production-ready system that converts PostgreSQL schemas into Neo4j graph structures with natural language query capabilities. Features automated schema analysis, LLM-powered semantic labeling using GPT-4o, embedding generation with OpenAI, and multi-modal search combining vector similarity and graph traversal. Processed Northwind database into 1,158 nodes and 5,946 relationships with semantic embeddings.",
-    image: "https://images.pexels.com/photos/1420709/pexels-photo-1420709.jpeg",
-    techStack: ["Python", "PostgreSQL", "Neo4j", "GPT-4o", "Gemini", "Streamlit", "Docker"],
-    github: "https://github.com/RohitMudili/relational-to-graphrag",
+    title: "AI Voice Market Analyser",
+    alt: "Voice waveform and market chart visualization",
+    description: "Voice-driven market analysis agent producing spoken insights.",
+    longDescription:
+      "A voice-interface agent that analyzes market data and returns spoken, context-aware insights — pairing real-time speech with LLM-driven analysis.",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=srgb&fm=jpg&w=1600&q=80",
+    techStack: ["Python", "Voice", "LLMs"],
+    github: "https://github.com/RohitMudili/AI-voice-market-analyser",
     liveDemo: null,
-    impact: "AI-powered knowledge graphs enabling natural language database querying"
-  }
+    impact: "Spoken market insight on demand",
+  },
 ];
 
 export const achievements = [
   {
     id: 1,
-    title: "Top 5 - Stellar Analytics Competition",
+    title: "Top 5 — Stellar Analytics Competition",
     organizer: "IIT BHU Technalytics",
-    description: "Secured top 5 position in competitive analytics challenge against 400+ participants from India's best tech talent",
-    icon: "Trophy"
+    description: "Secured a Top 5 position competing against 400+ participants nationwide in a competitive analytics challenge.",
+    icon: "Trophy",
   },
   {
     id: 2,
-    title: "Top 100 - Amazon ML Challenge",
+    title: "Top 100 — Amazon ML Challenge",
     organizer: "Amazon",
-    description: "Earned top 100 rank in Amazon's highly competitive machine learning challenge with 1,000+ teams nationwide",
-    icon: "Award"
-  }
+    description: "Earned a Top 100 rank among 1,000+ skilled teams across India in Amazon's machine-learning challenge.",
+    icon: "Award",
+  },
 ];
 
 export const education = {
   institution: "Indian Institute of Information Technology, Nagpur",
   degree: "Bachelor of Technology",
   major: "Computer Science and Engineering",
-  duration: "November 2022 – June 2026",
-  location: "Nagpur, Maharashtra"
+  duration: "Nov 2022 – Jun 2026 · Graduated",
+  location: "Nagpur, Maharashtra",
 };
