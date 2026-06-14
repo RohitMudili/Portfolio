@@ -14,7 +14,7 @@ export const personalInfo = {
 };
 
 export const highlights = [
-  { icon: "Briefcase", text: "Full-time AI Engineer @ Plum Benefits — agentic systems" },
+  { icon: "Briefcase", text: "AI Engineer @ Plum Benefits — agentic systems" },
   { icon: "GraduationCap", text: "B.Tech CSE, IIIT Nagpur — Graduated" },
   { icon: "Trophy", text: "Top 5 · Stellar Analytics, IIT BHU (400+ entrants)" },
   { icon: "Rocket", text: "Top 100 · Amazon ML Challenge (1000+ teams)" },
