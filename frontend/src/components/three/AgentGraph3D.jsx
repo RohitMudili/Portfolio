@@ -2,6 +2,14 @@ import React, { useMemo, useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Billboard, Text } from "@react-three/drei";
 import * as THREE from "three";
+import { isTouchDevice } from "../../lib/motion";
+
+// On touch devices: long-press to drag (so swipes still scroll) + lower DPI.
+const TOUCH = typeof window !== "undefined" ? isTouchDevice() : false;
+// Node centroid sits near local x≈+2, so on mobile we offset left to center it;
+// on desktop we push right so it sits beside the headline.
+const GRAPH_OFFSET_X = TOUCH ? -2.0 : 1.0;
+const LONG_PRESS_MS = 380;
 
 /* ------------------------------------------------------------------
    A live 3D agent / knowledge graph. Nodes = stages in an agentic RAG
@@ -78,6 +86,9 @@ function Node({ node, state, groupRef, setHot }) {
   const ndc = useMemo(() => new THREE.Vector2(), []);
   const grabOffset = useRef(new THREE.Vector3());
   const dragging = useRef(false);
+  const pressTimer = useRef(null);
+  const pressStart = useRef({ x: 0, y: 0 });
+  const armed = useRef(false); // long-press fired → drag active (touch)
 
   useFrame(() => {
     if (ref.current) ref.current.position.copy(state.positions[node.id]);
@@ -98,14 +109,13 @@ function Node({ node, state, groupRef, setHot }) {
     return groupRef.current ? groupRef.current.worldToLocal(intersect.clone()) : intersect.clone();
   };
 
-  const onDown = (e) => {
-    e.stopPropagation();
+  // Actually start dragging the node (compute drag plane + grab offset).
+  const beginDrag = (e) => {
     dragging.current = true;
     state.dragging.id = node.id;
     setHot && setHot(true);
     gl.domElement.style.cursor = "grabbing";
-    // drag plane: faces the camera, through the node's current world pos
-    const worldPos = node ? state.positions[node.id].clone() : new THREE.Vector3();
+    const worldPos = state.positions[node.id].clone();
     if (groupRef.current) groupRef.current.localToWorld(worldPos);
     camera.getWorldDirection(planeNormal);
     plane.setFromNormalAndCoplanarPoint(planeNormal, worldPos);
@@ -114,7 +124,38 @@ function Node({ node, state, groupRef, setHot }) {
     e.target.setPointerCapture?.(e.pointerId);
   };
 
+  const clearPress = () => {
+    if (pressTimer.current) { clearTimeout(pressTimer.current); pressTimer.current = null; }
+  };
+
+  const onDown = (e) => {
+    if (TOUCH) {
+      // Long-press to grab: don't capture or stop the event yet, so a normal
+      // swipe still scrolls the page. Arm a timer; if the finger holds (mostly
+      // still) for LONG_PRESS_MS, begin the drag.
+      pressStart.current = { x: e.clientX, y: e.clientY };
+      armed.current = false;
+      clearPress();
+      pressTimer.current = setTimeout(() => {
+        armed.current = true;
+        if (navigator.vibrate) try { navigator.vibrate(12); } catch {}
+        beginDrag(e);
+      }, LONG_PRESS_MS);
+      return;
+    }
+    // desktop: immediate grab
+    e.stopPropagation();
+    beginDrag(e);
+  };
+
   const onMove = (e) => {
+    if (TOUCH && !dragging.current) {
+      // cancel the long-press if the finger travels too far (it's a scroll)
+      const dx = e.clientX - pressStart.current.x;
+      const dy = e.clientY - pressStart.current.y;
+      if (dx * dx + dy * dy > 100) clearPress();
+      return;
+    }
     if (!dragging.current) return;
     e.stopPropagation();
     const local = screenToLocal(e);
@@ -122,9 +163,11 @@ function Node({ node, state, groupRef, setHot }) {
   };
 
   const onUp = (e) => {
+    clearPress();
     if (!dragging.current) return;
     e.stopPropagation();
     dragging.current = false;
+    armed.current = false;
     state.dragging.id = null;
     setHot && setHot(false);
     gl.domElement.style.cursor = hovered ? "grab" : "auto";
@@ -133,13 +176,15 @@ function Node({ node, state, groupRef, setHot }) {
 
   return (
     <group ref={ref}>
-      {/* generous invisible hit sphere so it's easy to grab */}
+      {/* generous invisible hit sphere so it's easy to grab.
+          Desktop: immediate drag. Touch: long-press to grab (swipes still scroll). */}
       <mesh
-        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); gl.domElement.style.cursor = "grab"; }}
-        onPointerOut={() => { setHovered(false); if (!dragging.current) gl.domElement.style.cursor = "auto"; }}
+        onPointerOver={(e) => { if (TOUCH) return; e.stopPropagation(); setHovered(true); gl.domElement.style.cursor = "grab"; }}
+        onPointerOut={() => { if (TOUCH) return; setHovered(false); if (!dragging.current) gl.domElement.style.cursor = "auto"; }}
         onPointerDown={onDown}
         onPointerMove={onMove}
         onPointerUp={onUp}
+        onPointerCancel={onUp}
       >
         <sphereGeometry args={[node.r * 1.9, 12, 12]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
@@ -288,16 +333,17 @@ function GraphRig({ pointer, state }) {
     const scrollY = window.scrollY || 0;
     const vh = window.innerHeight || 1;
     const k = Math.min(1, scrollY / vh);
-    const targetZ = 17.5 + k * 7;
+    // mobile sits in a centered box above the text → pull back + center;
+    // desktop sits beside the headline → closer + framed slightly right.
+    const targetZ = (TOUCH ? 20 : 17.5) + k * 7;
     camera.position.z += (targetZ - camera.position.z) * 0.05;
-    // look slightly right to keep the right-shifted graph framed
-    camera.lookAt(1.0, 0.1, 0);
+    camera.lookAt(TOUCH ? GRAPH_OFFSET_X : 1.0, 0.1, 0);
   });
 
   return (
-    // base X offset pushes the whole graph onto the right half of the hero;
-    // the bounded oscillation happens around this offset so it never drifts left.
-    <group ref={group} position={[1.0, 0, 0]}>
+    // base X offset pushes the whole graph onto the right half of the hero (desktop);
+    // centered on mobile. The bounded oscillation happens around this offset.
+    <group ref={group} position={[GRAPH_OFFSET_X, 0, 0]}>
       <Connections state={state} />
       {NODE_DEFS.map((n) => (
         <Node key={n.id} node={n} state={state} groupRef={group} setHot={setHot} />
@@ -319,15 +365,17 @@ export default function AgentGraph3D() {
   return (
     <div
       className="absolute inset-0 h-full w-full"
-      onPointerMove={onPointerMove}
+      onPointerMove={TOUCH ? undefined : onPointerMove}
       data-cursor
       aria-hidden="true"
     >
       <Canvas
-        dpr={[1, 1.8]}
+        dpr={TOUCH ? [1, 1.4] : [1, 1.8]}
         camera={{ position: [0, 0, 17.5], fov: 42 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        style={{ background: "transparent" }}
+        gl={{ antialias: !TOUCH, alpha: true, powerPreference: "high-performance" }}
+        // touch-action: pan-y → vertical swipes scroll the page normally;
+        // a stationary long-press is left for us to detect (grab a node).
+        style={{ background: "transparent", touchAction: TOUCH ? "pan-y" : "auto" }}
       >
         <Suspense fallback={null}>
           <GraphRig pointer={pointer} state={state} />

@@ -14,12 +14,19 @@ export const prefersReducedMotion = () =>
   window.matchMedia &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* Decide whether heavy WebGL 3D should mount: needs WebGL, a non-tiny
-   viewport, more than a couple cores, and no reduced-motion preference. */
+export const isTouchDevice = () =>
+  typeof window !== "undefined" &&
+  (("ontouchstart" in window) || (navigator.maxTouchPoints || 0) > 0 ||
+   (window.matchMedia && window.matchMedia("(hover: none)").matches));
+
+/* Decide whether the WebGL 3D should mount: needs WebGL, no reduced-motion,
+   and a tiny floor on viewport (so it's not rendered on a 320px feature phone).
+   Phones DO get the 3D now, but with touch-drag disabled + lower DPI — that
+   logic lives in AgentGraph3D, keyed off isTouchDevice(). */
 export function canRender3D() {
   if (typeof window === "undefined") return false;
   if (prefersReducedMotion()) return false;
-  if (window.innerWidth < 820) return false; // phones get the SVG fallback
+  if (window.innerWidth < 360) return false; // ultra-small screens: SVG fallback
   const cores = navigator.hardwareConcurrency || 4;
   if (cores < 4) return false;
   try {
