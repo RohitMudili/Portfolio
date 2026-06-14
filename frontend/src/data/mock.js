@@ -14,7 +14,7 @@ export const personalInfo = {
 };
 
 export const highlights = [
-  { icon: "Briefcase", text: "AI Engineer @ Plum Benefits — agentic support systems" },
+  { icon: "Briefcase", text: "Full-time AI Engineer @ Plum Benefits — agentic systems" },
   { icon: "GraduationCap", text: "B.Tech CSE, IIIT Nagpur — Graduated" },
   { icon: "Trophy", text: "Top 5 · Stellar Analytics, IIT BHU (400+ entrants)" },
   { icon: "Rocket", text: "Top 100 · Amazon ML Challenge (1000+ teams)" },
@@ -87,12 +87,13 @@ export const experiences = [
   {
     id: 1,
     company: "Plum Benefits",
-    role: "AI Engineer Intern",
-    duration: "Dec 2025 – Present",
+    role: "AI Engineer",
+    duration: "Jun 2026 – Present · Full-time",
     location: "Bengaluru — On-site",
     current: true,
     achievements: [
-      "Developing an AI-powered multi-agentic central support system using LangGraph and LangSmith — enabling complex actions like booking management, rescheduling, and automated refund initiation.",
+      "Converted from intern to full-time AI Engineer (interned Dec 2025 – May 2026) after building the core agentic support platform.",
+      "Building an AI-powered multi-agentic central support system using LangGraph and LangSmith — enabling complex actions like booking management, rescheduling, and automated refund initiation.",
       "Architected a skills-based agent framework capable of autonomous decision-making across cross-functional APIs, moving beyond retrieval-based Q&A to real task execution.",
       "Collaborated with business leadership and cross-functional teams to map complex API workflows into agentic skills, ensuring seamless integration with enterprise systems.",
     ],
