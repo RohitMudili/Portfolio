@@ -6,7 +6,16 @@ import { useReveal, useTilt } from "../lib/motion";
 
 function ProjectSheet({ project, sheet, featured }) {
   const ref = useReveal();
-  const tiltRef = useTilt(featured ? 3 : 6);
+  const tiltRef = useTilt(featured ? 2.5 : 4);
+  const primaryLink = project.github || project.liveDemo || null;
+
+  // Whole-card click → open the project. Robust against the 3D-tilt transform,
+  // which displaces native anchor hit-testing. Inner links still work and
+  // stopPropagation so they win when clicked directly.
+  const openPrimary = () => {
+    if (primaryLink) window.open(primaryLink, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <article
       ref={ref}
@@ -16,7 +25,12 @@ function ProjectSheet({ project, sheet, featured }) {
     <div
       ref={tiltRef}
       data-cursor
-      className="sheet group flex h-full flex-col transition-[box-shadow] duration-300 will-change-transform hover:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]"
+      onClick={openPrimary}
+      role={primaryLink ? "link" : undefined}
+      tabIndex={primaryLink ? 0 : undefined}
+      onKeyDown={(e) => { if (primaryLink && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openPrimary(); } }}
+      aria-label={primaryLink ? `${project.title} — open on GitHub` : undefined}
+      className={`sheet group flex h-full flex-col transition-[box-shadow] duration-300 will-change-transform hover:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] ${primaryLink ? "cursor-pointer" : ""}`}
     >
       <div className={`grid ${featured ? "md:grid-cols-[1.05fr_1fr]" : "grid-cols-1"} h-full`}>
         {/* plate */}
@@ -60,6 +74,7 @@ function ProjectSheet({ project, sheet, featured }) {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="inline-flex items-center gap-1.5 font-mono text-[0.78rem] uppercase tracking-wider text-ink transition-colors hover:text-accent"
               >
                 <Github size={15} strokeWidth={1.7} /> Source
@@ -70,6 +85,7 @@ function ProjectSheet({ project, sheet, featured }) {
                 href={project.liveDemo}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="inline-flex items-center gap-1.5 font-mono text-[0.78rem] uppercase tracking-wider text-ink transition-colors hover:text-accent"
               >
                 <ExternalLink size={15} strokeWidth={1.7} /> Demo
